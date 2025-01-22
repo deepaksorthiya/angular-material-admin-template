@@ -21,6 +21,38 @@ export const routes: Routes = [
       { path: '403', component: Error403Component },
       { path: '404', component: Error404Component },
       { path: '500', component: Error500Component },
+      {
+        path: 'design',
+        loadChildren: () => import('./routes/design/design.routes').then(m => m.routes),
+      },
+      {
+        path: 'material',
+        loadChildren: () => import('./routes/material/material.routes').then(m => m.routes),
+      },
+      {
+        path: 'media',
+        loadChildren: () => import('./routes/media/media.routes').then(m => m.routes),
+      },
+      {
+        path: 'forms',
+        loadChildren: () => import('./routes/forms/forms.routes').then(m => m.routes),
+      },
+      {
+        path: 'tables',
+        loadChildren: () => import('./routes/tables/tables.routes').then(m => m.routes),
+      },
+      {
+        path: 'profile',
+        loadChildren: () => import('./routes/profile/profile.routes').then(m => m.routes),
+      },
+      {
+        path: 'permissions',
+        loadChildren: () => import('./routes/permissions/permissions.routes').then(m => m.routes),
+      },
+      {
+        path: 'utilities',
+        loadChildren: () => import('./routes/utilities/utilities.routes').then(m => m.routes),
+      },
     ],
   },
   {

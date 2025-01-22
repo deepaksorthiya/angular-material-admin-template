@@ -15,6 +15,7 @@ import { MatPaginatorIntl } from '@angular/material/paginator';
 import { provideDateFnsDatetimeAdapter } from '@ng-matero/extensions-date-fns-adapter';
 import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { provideToastr } from 'ngx-toastr';
 
@@ -33,11 +34,9 @@ import {
 } from '@core';
 import { environment } from '@env/environment';
 import { PaginatorI18nService } from '@shared';
+import { InMemDataService } from '@shared/in-mem/in-mem-data.service';
 import { routes } from './app.routes';
 import { FormlyConfigModule } from './formly-config';
-
-import { LoginService } from '@core/authentication/login.service';
-import { FakeLoginService } from './fake-login.service';
 
 // Required for AOT compilation
 function TranslateHttpLoaderFactory(http: HttpClient) {
@@ -77,18 +76,17 @@ export const appConfig: ApplicationConfig = {
     }),
     importProvidersFrom(
       NgxPermissionsModule.forRoot(),
-      FormlyConfigModule.forRoot()
+      FormlyConfigModule.forRoot(),
+      // 👇 ❌ This is only used for demo purpose, remove it in the realworld application
+      InMemoryWebApiModule.forRoot(InMemDataService, {
+        dataEncapsulation: false,
+        passThruUnknownUrl: true,
+      })
     ),
-    // ==================================================
-    // 👇 ❌ Remove it in the realworld application
-    //
-    { provide: LoginService, useClass: FakeLoginService },
-    //
-    // ==================================================
     {
       provide: MatPaginatorIntl,
-      deps: [PaginatorI18nService],
       useFactory: (paginatorI18nSrv: PaginatorI18nService) => paginatorI18nSrv.getPaginatorIntl(),
+      deps: [PaginatorI18nService],
     },
     {
       provide: MAT_DATE_LOCALE,
