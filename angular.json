@@ -116,6 +116,17 @@
               "src/**/*.html"
             ]
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "baseHref": "/angular-material-admin-template/",
+            "repo": "https://github.com/deepaksorthiya/angular-material-admin-template.git",
+            "user": {
+              "name": "deepaksorthiya",
+              "email": "deepak.sorthiya@gmail.com"
+            }
+          }
         }
       }
     }
